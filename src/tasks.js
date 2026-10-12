@@ -73,5 +73,15 @@ function getTask(id) {
   return result.length > 0 ? result[0] : null;
 }
 
+// 列出某用户的所有任务
+function userTasks(userId) {
+  // 先筛选出属于当前用户的任务
+  let result = tasks.filter(t => t.userId == userId);
+
+  // 返回当前用户的数据
+  return result.length > 0 ? result : null;
+}
+
+
 // 导出所有任务操作函数
-module.exports = { createTask, listTasks, updateTask, deleteTask, getTask };
+module.exports = { createTask, listTasks, updateTask, deleteTask, getTask, userTasks };

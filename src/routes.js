@@ -5,7 +5,7 @@ const express = require('express');
 const { register, login, authMiddleware } = require('./auth');
 
 // 引入任务相关函数
-const { createTask, listTasks, updateTask, deleteTask, getTask } = require('./tasks');
+const { createTask, listTasks, updateTask, deleteTask, getTask, userTasks } = require('./tasks');
 
 // 创建路由实例
 const router = express.Router();
@@ -96,6 +96,18 @@ router.get('/tasks/:id', (req, res) => {
     res.json(result);
   } else {
     res.status(404).json({ message: '任务不存在' });
+  }
+});
+
+// 某用户任务详情：GET /api/tasks/user/:id
+router.get('/tasks/user/:id', (req, res) => {
+  // 调用 getTask
+  const result = userTasks(req.params.id);
+  if (result){
+    // 返回任务详情
+    res.json(result);
+  } else {
+    res.status(404).json({ message: '该用户没有创建任务' });
   }
 });
 
